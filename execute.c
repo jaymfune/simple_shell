@@ -2,60 +2,57 @@
 
 void execute_command(char *user_input)
 {
-    char *args[MAX_ARGS];
-    int i;
-    pid_t pid;
+	char *args[MAX_ARGS];
+	int i;
+	pid_t pid;
 
-    i = 0;
-    args[i] = strtok(user_input, " \n");
+	i = 0;
+	args[i] = strtok(user_input, " \n");
 
-    while (args[i] != NULL)
-    {
-        printf("Token: %s\n", args[i]);
-        i++;
-        args[i] = strtok(NULL, " \n");
-    }
-    args[i] = NULL;
+	while (args[i] != NULL)
+	{
+		/* printf("Token: %s\n", args[i]); */
+		i++;
+		args[i] = strtok(NULL, " \n");
+	}
 
-    if (strcmp(args[0], "exit") == 0)
-    {
-        printf("Exiting shell....\n");
-        handle_exit();
-    }
+	args[i] = NULL;
 
-    // Execute the command
-    pid = fork();
-    if (pid == -1)
-    {
-        perror("Fork failed");
-        exit(EXIT_FAILURE);
-    }
-    else if (pid == 0)
-    {
-        // Child process
-        if (execvp(args[0], args) == -1)
-        {
-            perror("Command not found");
-            exit(EXIT_FAILURE);
-        }
-    }
-    else
-    {
-        // Parent process
-        int status;
-        if (waitpid(pid, &status, 0) == -1)
-        {
-            perror("Waitpid failed");
-            exit(EXIT_FAILURE);
-        }
-    }
+	if (strcmp(args[0], "exit") == 0)
+	{
+		handle_exit();
+	}
 
-    return (0);
+	/* Execute the command */
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("Fork failed");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		/* Child process */
+		if (execvp(args[0], args) == -1)
+		{
+			perror("Command not found");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		/* Parent process */
+		int status;
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			perror("Waitpid failed");
+			exit(EXIT_FAILURE);
+		}
+	}
 }
 
-void handle_exit()
+void handle_exit(void)
 {
     printf("Exiting shell....\n");
     exit(0);
-    return (-1);
 }

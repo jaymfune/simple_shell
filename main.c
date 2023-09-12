@@ -1,6 +1,11 @@
 #include "shell.h"
 
-int main()
+/**
+  * main - shell entry point.
+  * Return: Always returns 0.
+  */
+
+int main(void)
 {
 	char *prompt = "($)"; /* Prompt to print to the terminal */
 	char *user_input;
@@ -26,7 +31,7 @@ int main()
 			execute_command(user_input);
 		}
 
-		printf("%s", user_input);
+		printf("%s\n", user_input);
 	}
 
 	free(user_input);
