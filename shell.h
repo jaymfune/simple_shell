@@ -7,5 +7,6 @@
 
 void execute_command(char *user_input);
 void handle_exit();
+char *cget_line(void);
 
 #endif
