@@ -7,7 +7,7 @@
  */
 void exitin(char **command, int status)
 {
-    freestrsarr(command);
+    free_arr(command);
     exit(status);
 }
 
@@ -63,5 +63,5 @@ void out_env(char **command, int status)
         write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
         write(STDOUT_FILENO, "\n", 1);
     }
-    freestrsarr(command);
+    free_arr(command);
 }

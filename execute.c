@@ -19,7 +19,7 @@ int _execute(char **command, char **argv, int ind)
 
 	{
 		out_error(argv[0], command[0], ind);
-		freestrsarr(command);
+		free_arr(command);
 		return (127);
 	}
 
@@ -30,13 +30,13 @@ int _execute(char **command, char **argv, int ind)
 		{
 			free(fullcom);
 			fullcom = NULL;
-			freestrsarr(command);
+			free_arr(command);
 		}
 	}
 	else
 	{
 		waitpid(child, &status, 0);
-		freestrsarr(command);
+		free_arr(command);
 		free(fullcom);
 		fullcom = NULL;
 	}
