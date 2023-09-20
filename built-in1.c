@@ -5,7 +5,7 @@
  * @info: potential argument to maintain function prototype
  *  Return:  0
  */
-int _myhistory(info_t *info)
+int _myhistory(ino_t *info)
 {
 	print_list(info->history);
 	return (0);
@@ -18,7 +18,7 @@ int _myhistory(info_t *info)
  *
  * Return: 0 === succcess, 1 === error
  */
-int unset_alias(info_t *info, char *str)
+int unset_alias(ino_t *info, char *str)
 {
 	char *p, c;
 	int ret;
@@ -29,7 +29,7 @@ int unset_alias(info_t *info, char *str)
 	c = *p;
 	*p = 0;
 	ret = delete_node_at_index(&(info->alias),
-		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+							   get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
@@ -41,7 +41,7 @@ int unset_alias(info_t *info, char *str)
  *
  * Return: 0 === succcess, 1 === error
  */
-int set_alias(info_t *info, char *str)
+int set_alias(ino_t *info, char *str)
 {
 	char *p;
 
@@ -69,7 +69,7 @@ int print_alias(list_t *node)
 	{
 		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
-		_putchar(*a);
+			_putchar(*a);
 		_putchar('\'');
 		_puts(p + 1);
 		_puts("'\n");
@@ -83,7 +83,7 @@ int print_alias(list_t *node)
  * @info: structure information for argument
  *  Return:  0 should be return for success
  */
-int _myalias(info_t *info)
+int _myalias(ino_t *info)
 {
 	int i = 0;
 	char *p = NULL;
@@ -110,4 +110,3 @@ int _myalias(info_t *info)
 
 	return (0);
 }
-
