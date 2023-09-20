@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * _getenvii - Get the value of an environment variable.
+ * _getenvi - Get the value of an environment variable.
  * @varr: The name of the environment variable to retrieve.
  *
  * Return: A pointer to the value of the environment variable,
  * or NULL if the variable is not found.
  */
-char *_getenvii(char *varr)
+char *_getenvi(char *varr)
 {
     char *val, *tmpp, *envv, *sar;
     int i;
