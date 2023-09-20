@@ -1,40 +1,41 @@
 #include "shell.h"
 
 /**
-  * main - shell entry point.
-  * Return: Always returns 0.
-  */
-
-int main(void)
+ * main - Entry point of the shell.
+ * @ac: Argument count.
+ * @argv: Array of command-line arguments.
+ *
+ * Return: Always returns 0.
+ */
+int main(int ac, char **argv)
 {
-	char *prompt = "($)"; /* Prompt to print to the terminal */
-	char *user_input;
-	size_t n = 0;
-	ssize_t input_length;
+	char *line = NULL, **command = NULL;
+	int status = 0, ind = 0;
+
+	(void)ac;
 
 	while (1)
 	{
-		printf("%s", prompt);
-		input_length = getline(&user_input, &n, stdin);
-
-		/* printf("%ld", input_length); */
-
-		/* Handle Ctrl+D (end-of-file condition) or other input errors */
-		if (input_length == -1)
+		/* Read a line of input from the user. */
+		line = read_line();
+		if (line == NULL)
 		{
-			printf("Exiting shell....\n");
-			free(user_input);
-			return (-1);
+			/* If the input is null and we are in a terminal, print a newline and exit. */
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
+			return (status);
 		}
+		ind++;
+
+		/* Tokenize the input line to get individual commands. */
+		command = tokenizer(line);
+		if (!command)
+			continue;
+
+		/* Check if the command is a built-in shell command. */
+		if (builtin_check(command[0]))
+			builtin_hnd(command, argv, status, ind); /* Handle built-in commands. */
 		else
-		{
-			execute_command(user_input);
-		}
-
-		printf("%s\n", user_input);
+			status = _execute(command, argv, ind); /* Execute external commands. */
 	}
-
-	free(user_input);
-
-	return (0);
 }
