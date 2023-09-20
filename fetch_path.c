@@ -21,7 +21,7 @@ char *_fetchpath(char *command)
         }
     }
 
-    pathev = _getenv("PATH");
+    pathev = _getenvi("PATH");
     if (!pathev)
         return (NULL);
 
