@@ -25,7 +25,7 @@ char *_strcpy(char *dest, char *src);
 
 void out_error(char *nombre, char *command, int ind);
 
-char *_getenvii(char *varr);
+char *_getenvi(char *varr);
 char *_fetchpath(char *command);
 
 void exitin(char **command, int status);
