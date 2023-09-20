@@ -13,17 +13,17 @@
  */
 void out_error(char *program_name, char *command, int index)
 {
-    char *index_str, message[] = ": not found\n";
+	char *index_str, message[] = ": not found\n";
 
-    index_str = _itoa(index);
+	index_str = _itoa(index);
 
-    write(STDERR_FILENO, program_name, _strlen(program_name));
-    write(STDERR_FILENO, ": ", 2);
-    write(STDERR_FILENO, index_str, _strlen(index_str));
-    write(STDERR_FILENO, ": ", 2);
-    write(STDERR_FILENO, command, _strlen(command));
-    write(STDERR_FILENO, message, _strlen(message));
-    free(index_str);
+	write(STDERR_FILENO, program_name, _strlen(program_name));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, index_str, _strlen(index_str));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, command, _strlen(command));
+	write(STDERR_FILENO, message, _strlen(message));
+	free(index_str);
 }
 
 /**
@@ -36,22 +36,22 @@ void out_error(char *program_name, char *command, int index)
  */
 char *_itoa(int n)
 {
-    char buffer[20];
-    int i = 0;
+	char buffer[20];
+	int i = 0;
 
-    if (n == 0)
-        buffer[i++] = '0';
-    else
-    {
-        while (n > 0)
-        {
-            buffer[i++] = (n % 10) + '0';
-            n /= 10;
-        }
-    }
-    buffer[i] = '\0';
-    rev_str(buffer, i);
-    return (_strdup(buffer));
+	if (n == 0)
+		buffer[i++] = '0';
+	else
+	{
+		while (n > 0)
+		{
+			buffer[i++] = (n % 10) + '0';
+			n /= 10;
+		}
+	}
+	buffer[i] = '\0';
+	rev_str(buffer, i);
+	return (_strdup(buffer));
 }
 
 /**
@@ -63,16 +63,16 @@ char *_itoa(int n)
  */
 void rev_str(char *str, int len)
 {
-    char tmp;
-    int start = 0;
-    int end = len - 1;
+	char tmp;
+	int start = 0;
+	int end = len - 1;
 
-    while (start < end)
-    {
-        tmp = str[start];
-        str[start] = str[end];
-        str[end] = tmp;
-        start++;
-        end--;
-    }
+	while (start < end)
+	{
+		tmp = str[start];
+		str[start] = str[end];
+		str[end] = tmp;
+		start++;
+		end--;
+	}
 }

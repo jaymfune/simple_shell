@@ -7,8 +7,8 @@
  */
 void exitin(char **command, int status)
 {
-    free_arr(command);
-    exit(status);
+	free_arr(command);
+	exit(status);
 }
 
 /**
@@ -19,15 +19,15 @@ void exitin(char **command, int status)
  */
 int builtin_check(char *command)
 {
-    char *builts[] = {"exit", "cd", "env", "setenv", NULL};
-    int i;
+	char *builts[] = {"exit", "cd", "env", "setenv", NULL};
+	int i;
 
-    for (i = 0; builts[i]; i++)
-    {
-        if (_strcmp(command, builts[i]) == 0)
-            return (1);
-    }
-    return (0);
+	for (i = 0; builts[i]; i++)
+	{
+		if (_strcmp(command, builts[i]) == 0)
+			return (1);
+	}
+	return (0);
 }
 
 /**
@@ -39,15 +39,14 @@ int builtin_check(char *command)
  */
 void builtin_hnd(char **command, char **argv, int status, int ind)
 {
-    (void)ind;
-    (void)argv;
+	(void)ind;
+	(void)argv;
 
-    if (_strcmp(command[0], "exit") == 0)
-        exitin(command, status);
-    else if (_strcmp(command[0], "env") == 0)
-        out_env(command, status);
+	if (_strcmp(command[0], "exit") == 0)
+		exitin(command, status);
+	else if (_strcmp(command[0], "env") == 0)
+		out_env(command, status);
 }
-
 /**
  * out_env - Prints environment variables to standard output.
  * @command: The array of command arguments (not used).
@@ -55,13 +54,13 @@ void builtin_hnd(char **command, char **argv, int status, int ind)
  */
 void out_env(char **command, int status)
 {
-    int i;
-    (void)status;
+	int i;
+	(void)status;
 
-    for (i = 0; environ[i]; i++)
-    {
-        write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
-        write(STDOUT_FILENO, "\n", 1);
-    }
-    free_arr(command);
+	for (i = 0; environ[i]; i++)
+	{
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	free_arr(command);
 }

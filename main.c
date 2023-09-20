@@ -20,7 +20,10 @@ int main(int ac, char **argv)
 		line = read_line();
 		if (line == NULL)
 		{
-			/* If the input is null and we are in a terminal, print a newline and exit. */
+			/**
+			 * If the input is null and we are in a terminal,
+			 * print a newline and exit.
+			 */
 			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
 			return (status);
