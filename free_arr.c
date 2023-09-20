@@ -2,22 +2,22 @@
 
 /**
  * free_arr - free array.
- * @ary: str array to be freed.
+ * @arr: str array to be freed.
  *
  */
-void free_arr(char **ary)
+void free_arr(char **arr)
 {
 	int i;
 
-	if (!ary)
+	if (!arr)
 		return;
 
-	for (i = 0; ary[i]; i++)
+	for (i = 0; arr[i]; i++)
 	{
-		free(ary[i]);
-		ary[i] = NULL;
+		free(arr[i]);
+		arr[i] = NULL;
 	}
 
-	free(ary);
-	ary = NULL;
+	free(arr);
+	arr = NULL;
 }

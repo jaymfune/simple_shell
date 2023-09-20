@@ -8,7 +8,7 @@
 char *_fetchpath(char *command)
 {
 	int i;
-	char *pathev, *fullcom, *directory;
+	char *path_env, *full_path, *directory;
 	struct stat stt;
 
 	for (i = 0; command[i]; i++)
@@ -21,30 +21,30 @@ char *_fetchpath(char *command)
 		}
 	}
 
-	pathev = _getenvi("PATH");
-	if (!pathev)
+	path_env = _getenvi("PATH");
+	if (!path_env)
 		return (NULL);
 
-	directory = strtok(pathev, ":");
+	directory = strtok(path_env, ":");
 	while (directory)
 	{
-		fullcom = malloc(_strlen(directory) + _strlen(command) + 2);
-		if (fullcom)
+		full_path = malloc(_strlen(directory) + _strlen(command) + 2);
+		if (full_path)
 		{
-			_strcpy(fullcom, directory);
-			_strcat(fullcom, "/");
-			_strcat(fullcom, command);
-			if (stat(fullcom, &stt) == 0)
+			_strcpy(full_path, directory);
+			_strcat(full_path, "/");
+			_strcat(full_path, command);
+			if (stat(full_path, &stt) == 0)
 			{
-				free(pathev);
-				return (fullcom);
+				free(path_env);
+				return (full_path);
 			}
 
-			free(fullcom);
+			free(full_path);
 			directory = strtok(NULL, ":");
 		}
 	}
 
-	free(pathev);
+	free(path_env);
 	return (NULL);
 }

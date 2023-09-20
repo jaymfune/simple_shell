@@ -9,13 +9,13 @@
  */
 int _execute(char **command, char **argv, int ind)
 {
-	char *fullcom;
+	char *full_path;
 	pid_t child;
 	int status;
 
-	fullcom = _fetchpath(command[0]);
+	full_path = _fetchpath(command[0]);
 
-	if (!fullcom)
+	if (!full_path)
 
 	{
 		out_error(argv[0], command[0], ind);
@@ -26,10 +26,10 @@ int _execute(char **command, char **argv, int ind)
 	child = fork();
 	if (child == 0)
 	{
-		if (execve(fullcom, command, environ) == -1)
+		if (execve(full_path, command, environ) == -1)
 		{
-			free(fullcom);
-			fullcom = NULL;
+			free(full_path);
+			full_path = NULL;
 			free_arr(command);
 		}
 	}
@@ -37,8 +37,8 @@ int _execute(char **command, char **argv, int ind)
 	{
 		waitpid(child, &status, 0);
 		free_arr(command);
-		free(fullcom);
-		fullcom = NULL;
+		free(full_path);
+		full_path = NULL;
 	}
 
 	return (WEXITSTATUS(status));
